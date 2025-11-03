@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+# My App
+
+This repository contains:
+1. **React Web Application** - A React app bootstrapped with Create React App
+2. **🍳 Cooking AI Agent** - An interactive Python console app powered by GitHub Models
+
+---
+
+## React Web Application
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -68,3 +76,41 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+---
+
+## 🍳 Cooking AI Agent
+
+An interactive console-based AI cooking assistant powered by GitHub Models. This Python application leverages AI language models to support:
+
+- **Recipe Search** - Find recipes based on ingredients, cuisine, and dietary restrictions
+- **Ingredient Extraction** - Extract ingredients and quantities from recipe texts
+- **Cooking Tips** - Get expert cooking advice and techniques
+
+### Quick Start
+
+```bash
+# Navigate to the cooking AI agent directory
+cd cooking-ai-agent
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set your GitHub token
+export GITHUB_TOKEN=your_github_token_here
+
+# Run the application
+python cooking_agent.py
+```
+
+For detailed setup instructions and usage, see the [Cooking AI Agent README](./cooking-ai-agent/README.md).
+
+### Features
+
+- 🤖 Powered by GitHub Models (GPT-4)
+- 📋 Ingredient extraction with quantities
+- 🔍 Smart recipe search with filters
+- 💡 Professional cooking tips
+- 📱 Interactive console interface
+
+**Get Started:** [View Full Documentation →](./cooking-ai-agent/README.md)
