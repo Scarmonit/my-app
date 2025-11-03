@@ -1,0 +1,120 @@
+version: '3'
+
+vars:
+  PROJECT_NAME: my-app
+  NODE_VERSION: 20.x
+
+tasks:
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  install:
+    desc: Install project dependencies
+    cmds:
+      - npm ci
+
+  dev:
+    desc: Start development server
+    cmds:
+      - npm start
+
+  dev:setup:
+    desc: Setup development environment
+    cmds:
+      - task: install
+      - echo "Development environment ready!"
+
+  lint:
+    desc: Run linter
+    cmds:
+      - npm run lint
+
+  lint:fix:
+    desc: Run linter with auto-fix
+    cmds:
+      - npm run lint:fix
+
+  test:
+    desc: Run tests
+    cmds:
+      - npm test -- --watchAll=false
+
+  test:coverage:
+    desc: Run tests with coverage
+    cmds:
+      - npm test -- --coverage --watchAll=false
+
+  test:watch:
+    desc: Run tests in watch mode
+    cmds:
+      - npm test
+
+  build:
+    desc: Build for production
+    cmds:
+      - npm run build
+
+  clean:
+    desc: Clean build artifacts and dependencies
+    cmds:
+      - rm -rf build
+      - rm -rf node_modules
+      - rm -rf coverage
+
+  docker:build:dev:
+    desc: Build development Docker image
+    cmds:
+      - docker-compose -f docker-compose.dev.yml build
+
+  docker:up:dev:
+    desc: Start development Docker containers
+    cmds:
+      - docker-compose -f docker-compose.dev.yml up -d
+
+  docker:down:dev:
+    desc: Stop development Docker containers
+    cmds:
+      - docker-compose -f docker-compose.dev.yml down
+
+  docker:build:prod:
+    desc: Build production Docker image
+    cmds:
+      - docker-compose -f docker-compose.prod.yml build
+
+  docker:up:prod:
+    desc: Start production Docker containers
+    cmds:
+      - docker-compose -f docker-compose.prod.yml up -d
+
+  docker:down:prod:
+    desc: Stop production Docker containers
+    cmds:
+      - docker-compose -f docker-compose.prod.yml down
+
+  ci:
+    desc: Run CI pipeline locally
+    cmds:
+      - task: lint
+      - task: test:coverage
+      - task: build
+
+  deploy:dev:
+    desc: Deploy to development environment
+    cmds:
+      - echo "Deploying to development..."
+      - task: docker:build:dev
+      - task: docker:up:dev
+
+  deploy:prod:
+    desc: Deploy to production environment
+    cmds:
+      - echo "Deploying to production..."
+      - task: docker:build:prod
+      - task: docker:up:prod
+
+  deploy:all:
+    desc: Deploy all environments
+    cmds:
+      - ./deploy-all.sh
