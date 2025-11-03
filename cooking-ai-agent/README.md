@@ -18,6 +18,19 @@ An interactive console-based AI cooking assistant powered by GitHub Models. This
 
 ## Setup
 
+### Quick Start (Recommended)
+
+Run the automated setup script:
+
+```bash
+cd cooking-ai-agent
+./setup.sh
+```
+
+This will install dependencies and guide you through creating your `.env` file.
+
+### Manual Setup
+
 ### 1. Get Your GitHub Token
 
 1. Go to [GitHub Settings > Personal Access Tokens](https://github.com/settings/tokens)
