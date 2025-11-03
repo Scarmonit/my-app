@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## AI Development Setup
+
+This project is configured to work with [Continue](https://continue.dev/), an AI-powered coding assistant. See [.continue/README.md](.continue/README.md) for setup instructions.
+
 ## Available Scripts
 
 In the project directory, you can run:
