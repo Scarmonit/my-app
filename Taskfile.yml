@@ -1,0 +1,118 @@
+version: '3'
+
+vars:
+  APP_NAME: my-app
+  NODE_VERSION: 20.x
+
+tasks:
+  default:
+    desc: "Show available tasks"
+    cmds:
+      - task --list
+
+  setup:
+    desc: "Setup development environment"
+    cmds:
+      - echo "Setting up {{.APP_NAME}} development environment..."
+      - npm install
+      - task: setup:env
+      - echo "Setup complete! Run 'task dev' to start development server"
+
+  setup:env:
+    desc: "Setup environment variables"
+    cmds:
+      - |
+        if [ ! -f .env ]; then
+          cp .env.example .env
+          echo "Created .env file from .env.example"
+          echo "Please update .env with your configuration"
+        else
+          echo ".env file already exists"
+        fi
+    status:
+      - test -f .env
+
+  dev:
+    desc: "Run development server"
+    cmds:
+      - npm start
+
+  build:
+    desc: "Build production bundle"
+    cmds:
+      - npm run build
+
+  test:
+    desc: "Run tests"
+    cmds:
+      - npm test
+
+  test:coverage:
+    desc: "Run tests with coverage"
+    cmds:
+      - npm test -- --coverage --watchAll=false
+
+  test:watch:
+    desc: "Run tests in watch mode"
+    cmds:
+      - npm test
+
+  lint:
+    desc: "Lint code"
+    cmds:
+      - npm run lint
+
+  lint:fix:
+    desc: "Lint and fix code"
+    cmds:
+      - npm run lint:fix
+
+  clean:
+    desc: "Clean build artifacts and dependencies"
+    cmds:
+      - rm -rf build
+      - rm -rf node_modules
+      - echo "Cleaned build artifacts and dependencies"
+
+  docker:build:dev:
+    desc: "Build development Docker image"
+    cmds:
+      - docker-compose -f docker-compose.dev.yml build
+
+  docker:up:dev:
+    desc: "Start development Docker containers"
+    cmds:
+      - docker-compose -f docker-compose.dev.yml up
+
+  docker:down:dev:
+    desc: "Stop development Docker containers"
+    cmds:
+      - docker-compose -f docker-compose.dev.yml down
+
+  docker:build:prod:
+    desc: "Build production Docker image"
+    cmds:
+      - docker-compose -f docker-compose.prod.yml build
+
+  docker:up:prod:
+    desc: "Start production Docker containers"
+    cmds:
+      - docker-compose -f docker-compose.prod.yml up -d
+
+  docker:down:prod:
+    desc: "Stop production Docker containers"
+    cmds:
+      - docker-compose -f docker-compose.prod.yml down
+
+  deploy:
+    desc: "Deploy application"
+    cmds:
+      - ./deploy-all.sh
+
+  ci:
+    desc: "Run CI pipeline locally"
+    cmds:
+      - task: lint
+      - task: test:coverage
+      - task: build
+      - echo "CI pipeline completed successfully"

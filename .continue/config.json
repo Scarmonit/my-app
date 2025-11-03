@@ -1,0 +1,108 @@
+{
+  "models": [
+    {
+      "title": "GPT-4",
+      "provider": "openai",
+      "model": "gpt-4",
+      "apiKey": ""
+    },
+    {
+      "title": "GPT-3.5 Turbo",
+      "provider": "openai",
+      "model": "gpt-3.5-turbo",
+      "apiKey": ""
+    },
+    {
+      "title": "Claude 3 Sonnet",
+      "provider": "anthropic",
+      "model": "claude-3-sonnet-20240229",
+      "apiKey": ""
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "Codestral",
+    "provider": "mistral",
+    "model": "codestral-latest",
+    "apiKey": ""
+  },
+  "customCommands": [
+    {
+      "name": "test",
+      "prompt": "Write a comprehensive test suite for the following code",
+      "description": "Generate tests for selected code"
+    },
+    {
+      "name": "review",
+      "prompt": "Review the following code for potential issues, bugs, and improvements",
+      "description": "Code review assistance"
+    },
+    {
+      "name": "docs",
+      "prompt": "Generate comprehensive documentation for the following code",
+      "description": "Generate documentation"
+    },
+    {
+      "name": "refactor",
+      "prompt": "Suggest refactoring improvements for the following code to make it more maintainable",
+      "description": "Refactoring suggestions"
+    }
+  ],
+  "contextProviders": [
+    {
+      "name": "code",
+      "params": {}
+    },
+    {
+      "name": "docs",
+      "params": {}
+    },
+    {
+      "name": "diff",
+      "params": {}
+    },
+    {
+      "name": "terminal",
+      "params": {}
+    },
+    {
+      "name": "problems",
+      "params": {}
+    },
+    {
+      "name": "folder",
+      "params": {}
+    },
+    {
+      "name": "codebase",
+      "params": {}
+    }
+  ],
+  "slashCommands": [
+    {
+      "name": "edit",
+      "description": "Edit code in the current file"
+    },
+    {
+      "name": "comment",
+      "description": "Add comments to code"
+    },
+    {
+      "name": "share",
+      "description": "Share code snippets"
+    },
+    {
+      "name": "cmd",
+      "description": "Generate shell commands"
+    },
+    {
+      "name": "commit",
+      "description": "Generate commit messages"
+    }
+  ],
+  "allowAnonymousTelemetry": false,
+  "embeddingsProvider": {
+    "provider": "openai",
+    "model": "text-embedding-3-small",
+    "apiKey": ""
+  }
+}
