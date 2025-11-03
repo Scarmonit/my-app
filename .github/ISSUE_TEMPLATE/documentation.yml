@@ -1,0 +1,77 @@
+name: Documentation
+description: Report an issue with documentation or suggest improvements
+title: "[Docs]: "
+labels: ["documentation", "needs-review"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for helping improve our documentation! 📝
+        Clear documentation helps everyone. Please provide details about the documentation issue or improvement.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation needs attention?
+      options:
+        - README.md
+        - Contributing guidelines
+        - Code comments
+        - API documentation
+        - Setup instructions
+        - Examples or tutorials
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: What's the issue?
+      description: Describe what's wrong, missing, unclear, or could be improved
+      placeholder: "Example: The installation instructions don't mention the required Node.js version..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: location
+    attributes:
+      label: Location
+      description: Where is this documentation located?
+      placeholder: "Example: README.md, lines 15-20, or Contributing Guidelines section 3..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Improvement
+      description: How would you improve or fix this documentation?
+      placeholder: "Example: Add a Prerequisites section at the beginning listing required software..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information that might be helpful
+      placeholder: Links to examples, screenshots, or references to good documentation practices
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please confirm the following
+      options:
+        - label: I have checked that this documentation issue hasn't already been reported
+          required: true
+        - label: I have provided clear details about the documentation issue
+          required: true
+        - label: I am willing to submit a PR to fix this if needed
+          required: false
