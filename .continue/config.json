@@ -22,7 +22,7 @@
   "tabAutocompleteModel": {
     "title": "Codestral",
     "provider": "mistral",
-    "model": "codestral-latest",
+    "model": "codestral-2025-01-22",
     "apiKey": ""
   },
   "embeddingsProvider": {
