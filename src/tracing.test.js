@@ -1,9 +1,9 @@
 // Mock OpenTelemetry modules for Jest environment
+import { initTracing } from './tracing';
+
 jest.mock('./tracing', () => ({
   initTracing: jest.fn(),
 }));
-
-import { initTracing } from './tracing';
 
 describe('Tracing', () => {
   it('should be callable without errors', () => {
