@@ -68,3 +68,89 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Automation & Development Tools
+
+This project includes comprehensive automation scaffolding for streamlined development, testing, and deployment.
+
+### Task Automation
+
+The project uses [Task](https://taskfile.dev) for task automation. Install Task following the [official installation guide](https://taskfile.dev/installation/).
+
+#### Available Tasks
+
+View all available tasks:
+```bash
+task --list
+```
+
+Common tasks:
+```bash
+task install           # Install project dependencies
+task dev              # Start development server
+task dev:setup        # Setup development environment
+task lint             # Run linter
+task lint:fix         # Run linter with auto-fix
+task test             # Run tests
+task test:coverage    # Run tests with coverage
+task build            # Build for production
+task ci               # Run full CI pipeline locally
+```
+
+### Docker Support
+
+The project includes Docker configurations for both development and production environments.
+
+#### Development Environment
+
+```bash
+task docker:build:dev    # Build development Docker image
+task docker:up:dev       # Start development containers
+task docker:down:dev     # Stop development containers
+```
+
+Or using docker-compose directly:
+```bash
+docker-compose -f docker-compose.dev.yml up
+```
+
+#### Production Environment
+
+```bash
+task docker:build:prod   # Build production Docker image
+task docker:up:prod      # Start production containers
+task docker:down:prod    # Stop production containers
+```
+
+Or using docker-compose directly:
+```bash
+docker-compose -f docker-compose.prod.yml up
+```
+
+### Deployment
+
+Deploy to specific environments using the deployment wrapper script:
+
+```bash
+./deploy-all.sh dev      # Deploy to development
+./deploy-all.sh prod     # Deploy to production (with confirmation)
+./deploy-all.sh all      # Deploy to all environments
+```
+
+Or using Task:
+```bash
+task deploy:dev          # Deploy to development
+task deploy:prod         # Deploy to production
+task deploy:all          # Deploy all environments
+```
+
+### CI/CD Pipeline
+
+The project includes a comprehensive GitHub Actions CI/CD pipeline that:
+
+1. **Lint**: Runs ESLint on all code changes
+2. **Test & Build**: Runs tests with coverage and builds the application on Node.js 18.x and 20.x
+3. **Docker Build**: Builds both development and production Docker images
+4. **Deploy**: Automatically deploys to development and production environments on main branch
+
+The pipeline runs on every push to main and on all pull requests.

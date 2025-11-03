@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: my-app-frontend-prod
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - my-app-network
+    restart: always
+
+  # Placeholder for future API service
+  # api:
+  #   build:
+  #     context: ./api
+  #     dockerfile: Dockerfile.prod
+  #   container_name: my-app-api-prod
+  #   ports:
+  #     - "4000:4000"
+  #   environment:
+  #     - NODE_ENV=production
+  #   networks:
+  #     - my-app-network
+  #   restart: always
+
+  # Placeholder for future bridge service
+  # bridge:
+  #   build:
+  #     context: ./bridge
+  #     dockerfile: Dockerfile.prod
+  #   container_name: my-app-bridge-prod
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     - NODE_ENV=production
+  #   networks:
+  #     - my-app-network
+  #   restart: always
+
+networks:
+  my-app-network:
+    driver: bridge

@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD Pipeline
 
 on:
   push:
@@ -7,8 +7,29 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  lint:
+    name: Lint Code
     runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js 20.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.x
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run linter
+      run: npm run lint
+
+  test:
+    name: Test & Build
+    runs-on: ubuntu-latest
+    needs: lint
     
     strategy:
       matrix:
@@ -37,3 +58,81 @@ jobs:
       if: matrix.node-version == '20.x'
       with:
         fail_ci_if_error: false
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      if: matrix.node-version == '20.x'
+      with:
+        name: build-artifacts
+        path: build/
+        retention-days: 7
+
+  docker-build:
+    name: Docker Build & Test
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: Build development Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile.dev
+        push: false
+        tags: my-app:dev
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    
+    - name: Build production Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile.prod
+        push: false
+        tags: my-app:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  deploy-dev:
+    name: Deploy to Development
+    runs-on: ubuntu-latest
+    needs: docker-build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: development
+      url: http://dev.example.com
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to development
+      run: |
+        echo "Deploying to development environment..."
+        echo "This would typically trigger deployment to your dev infrastructure"
+        # Add actual deployment commands here
+        # e.g., kubectl apply, aws ecs update-service, etc.
+
+  deploy-prod:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: deploy-dev
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://example.com
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to production
+      run: |
+        echo "Deploying to production environment..."
+        echo "This would typically trigger deployment to your production infrastructure"
+        # Add actual deployment commands here
+        # e.g., kubectl apply, aws ecs update-service, etc.
