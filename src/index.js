@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { initTracing } from './tracing';
+
+// Initialize OpenTelemetry tracing before rendering the app
+initTracing();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

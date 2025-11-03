@@ -2,6 +2,43 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## OpenTelemetry Tracing
+
+This application includes OpenTelemetry instrumentation for distributed tracing and observability.
+
+### Features
+
+- **Automatic Instrumentation**: Traces are automatically generated for:
+  - HTTP fetch API calls
+  - XMLHttpRequest calls
+  - Document/page load events
+  
+### Configuration
+
+Tracing is configured via environment variables. Create a `.env` file in the root directory (see `.env.example` for reference):
+
+```bash
+# Optional: Set the OTLP collector endpoint
+REACT_APP_OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318/v1/traces
+```
+
+### Behavior by Environment
+
+- **Development**: Traces are logged to the browser console for debugging
+- **Production**: Traces are sent to the configured OTLP collector endpoint
+
+### Integration with Observability Platforms
+
+To view traces in production, configure an OTLP-compatible backend such as:
+- Jaeger
+- Tempo
+- DataDog
+- New Relic
+- Honeycomb
+- Any other OTLP-compatible service
+
+Set the `REACT_APP_OTEL_EXPORTER_OTLP_ENDPOINT` environment variable to your collector's endpoint.
+
 ## Available Scripts
 
 In the project directory, you can run:
