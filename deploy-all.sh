@@ -40,7 +40,7 @@ echo -e "${GREEN}✓ Dependencies validated${NC}"
 
 # Install dependencies
 echo "📦 Installing dependencies..."
-npm ci --only=production
+npm ci
 
 # Run tests
 echo "🧪 Running tests..."
